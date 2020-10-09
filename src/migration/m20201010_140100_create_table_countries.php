@@ -32,12 +32,4 @@ SQL
         );
         $this->insertMany($this->table, $this->data);
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function down()
-    {
-        $this->connection->exec('DROP TABLE {$this->table}');
-    }
 }

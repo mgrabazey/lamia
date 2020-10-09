@@ -28,12 +28,6 @@ abstract class AbstractMigration
     abstract public function up();
 
     /**
-     * Down migration.
-     * @throws Exception
-     */
-    abstract public function down();
-
-    /**
      * @param string $table
      * @param array[] $data
      * @throws Exception

@@ -39,14 +39,6 @@ SQL
     }
 
     /**
-     * @inheritdoc
-     */
-    public function down()
-    {
-        $this->connection->exec('DROP TABLE {$this->table}');
-    }
-
-    /**
      * @return string[]
      * @throws Exception
      */
