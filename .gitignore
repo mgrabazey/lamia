@@ -1,2 +1,4 @@
 .idea
 vendor
+mysql/data
+!mysql/data/.gitkeep
