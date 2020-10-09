@@ -1,0 +1,9 @@
+{
+  "name": "mgrabazey/lamia",
+  "description": "Lamia OY Practical Task",
+  "autoload": {
+    "psr-4": {
+      "Shop\\": "src/app/"
+    }
+  }
+}

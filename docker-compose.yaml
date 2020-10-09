@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  fpm:
+    build: ./php-fpm
+    volumes:
+      - ./:/var/www/app
+
+  composer:
+    image: composer:1.10.13
+    volumes:
+      - ./:/app
+    entrypoint: ["composer", "install"]
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/var/www/app
+      - ./nginx/conf.d:/etc/nginx/conf.d
+
+  db:
+    image: mysql:5.7.22
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: shop
+      MYSQL_PASSWORD: shop
+      MYSQL_DATABASE: shop
+    volumes:
+      - ./mysql/data:/var/lib/mysql
