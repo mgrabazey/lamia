@@ -10,11 +10,6 @@ class Product
     private $id;
 
     /**
-     * @var int
-     */
-    private $categoryId;
-
-    /**
      * @var string
      */
     private $name;
@@ -38,22 +33,6 @@ class Product
     public function setId(int $id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCategoryId(): int
-    {
-        return $this->categoryId;
-    }
-
-    /**
-     * @param int $categoryId
-     */
-    public function setCategoryId(int $categoryId)
-    {
-        $this->categoryId = $categoryId;
     }
 
     /**

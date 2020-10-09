@@ -4,6 +4,7 @@ namespace Shop\Infra\Db\MySql\Migration;
 
 use PDO;
 use Exception;
+use Throwable;
 use DirectoryIterator;
 
 class Manager
@@ -11,7 +12,7 @@ class Manager
     /**
      * @var PDO
      */
-    private $connection;
+    protected $connection;
 
     /**
      * @var string
@@ -35,7 +36,7 @@ class Manager
     }
 
     /**
-     * @throws \Throwable
+     * @throws Exception
      */
     public function handle()
     {
@@ -55,7 +56,7 @@ class Manager
             }
             require_once $fileInfo->getPathname();
             if (!is_subclass_of($name, AbstractMigration::class)) {
-                throw new Exception();
+                throw new Exception('Migration must be an instance of ' . AbstractMigration::class);
             }
             /** @var AbstractMigration $migration */
             $migration = new $name($this->connection);
@@ -65,9 +66,9 @@ class Manager
                 $this->addMigrated($name);
                 $this->connection->commit();
 
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 $this->connection->rollBack();
-                throw $e;
+                throw new Exception($name, 0, $e);
             }
         }
     }
@@ -77,20 +78,18 @@ class Manager
      */
     private function prepareTable()
     {
-        $success = $this->connection->exec(<<<SQL
+        $this->connection->exec(<<<SQL
 CREATE TABLE IF NOT EXISTS {$this->table} (
   name varchar(1024) NOT NULL PRIMARY KEY,
   migrated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 SQL
-);
-        if ($success === false) {
-            throw new Exception($this->connection->errorCode(). ': ' . print_r($this->connection->errorInfo(), true));
-        }
+        );
     }
 
     /**
      * @return array
+     * @throws Exception
      */
     private function getMigrated(): array
     {
@@ -110,9 +109,6 @@ SQL
     private function addMigrated(string $name)
     {
         $query = $this->connection->prepare("INSERT INTO {$this->table} (name) VALUES (:name)");
-        $success = $query->execute([':name' => $name]);
-        if ($success === false) {
-            throw new Exception();
-        }
+        $query->execute([':name' => $name]);
     }
 }

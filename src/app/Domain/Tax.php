@@ -12,7 +12,7 @@ class Tax
     /**
      * @var int
      */
-    private $categoryId;
+    private $productId;
 
     /**
      * @var float
@@ -38,17 +38,17 @@ class Tax
     /**
      * @return int
      */
-    public function getCategoryId(): int
+    public function getProductId(): int
     {
-        return $this->categoryId;
+        return $this->productId;
     }
 
     /**
-     * @param int $categoryId
+     * @param int $productId
      */
-    public function setCategoryId(int $categoryId)
+    public function setProductId(int $productId)
     {
-        $this->categoryId = $categoryId;
+        $this->productId = $productId;
     }
 
     /**
