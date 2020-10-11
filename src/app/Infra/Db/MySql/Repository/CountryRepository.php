@@ -3,15 +3,15 @@
 namespace Shop\Infra\Db\MySql\Repository;
 
 use Shop\Domain\Country;
-use Shop\Domain\Repository\CountryRepositoryInterface;
+use Shop\Domain\Repository\CountryInterface;
 use Shop\Infra\Db\TableName;
 
-class CountryRepository extends AbstractRepository implements CountryRepositoryInterface
+class CountryRepository extends AbstractRepository implements CountryInterface
 {
     /**
      * @inheritdoc
      */
-    protected $primaryKey = 'code';
+    protected string $primaryKey = 'code';
 
     /**
      * @inheritdoc

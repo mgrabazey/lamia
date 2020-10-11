@@ -11,12 +11,12 @@ abstract class AbstractRepository
     /**
      * @var PDO
      */
-    protected $connection;
+    protected PDO $connection;
 
     /**
      * @var string
      */
-    protected $primaryKey = 'id';
+    protected string $primaryKey = 'id';
 
     /**
      * AbstractRepository constructor.
@@ -42,16 +42,7 @@ abstract class AbstractRepository
      */
     protected function fetchAll(): array
     {
-        $query = $this->connection->prepare("SELECT * FROM {$this->table()}");
-        $query->execute();
-        $data = $query->fetchAll();
-        $models = [];
-        foreach ($data as $item) {
-            $model = $this->model();
-            $this->fromAttributes($model, $item);
-            $models[] = $model;
-        }
-        return $models;
+        return $this->prepareAndFetchAll("SELECT * FROM {$this->table()}");
     }
 
     /**
@@ -60,12 +51,55 @@ abstract class AbstractRepository
      */
     protected function fetchByPrimaryKey($primaryKey)
     {
-        $query = $this->connection->prepare("SELECT * FROM {$this->table()} WHERE {$this->primaryKey} = :pk");
-        $query->execute([':pk' => $primaryKey]);
+        return $this->prepareAndFetchOne("SELECT * FROM {$this->table()} WHERE {$this->primaryKey} = :pk", [':pk' => $primaryKey]);
+    }
+
+    /**
+     * @param array $primaryKeys
+     * @return mixed
+     */
+    protected function fetchByPrimaryKeys(array $primaryKeys)
+    {
+        $params = [];
+        foreach ($primaryKeys as $i => $primaryKey) {
+            $params[":pk$i"] = $primaryKey;
+        }
+        $in = implode(',', array_keys($params));
+        return $this->prepareAndFetchAll("SELECT * FROM {$this->table()} WHERE {$this->primaryKey} IN ({$in})", $params);
+    }
+
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return mixed
+     */
+    protected function prepareAndFetchOne(string $sql, array $params = [])
+    {
+        $query = $this->connection->prepare($sql);
+        $query->execute($params);
         $data = $query->fetch();
         $model = $this->model();
         $this->fromAttributes($model, $data);
         return $model;
+    }
+
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return array
+     */
+    protected function prepareAndFetchAll(string $sql, array $params = [])
+    {
+        $query = $this->connection->prepare($sql);
+        $query->execute($params);
+        $data = $query->fetchAll();
+        $models = [];
+        foreach ($data as $item) {
+            $model = $this->model();
+            $this->fromAttributes($model, $item);
+            $models[] = $model;
+        }
+        return $models;
     }
 
     /**
@@ -93,7 +127,7 @@ abstract class AbstractRepository
         foreach ($attributes as $name => $value) {
             try {
                 // by the doc property names are case insensitive
-                $name = str_replace('_', ' ', $name);
+                $name = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $name))));
                 $refProperty = $refModel->getProperty($name);
 
             } catch (ReflectionException $e) {
@@ -124,7 +158,7 @@ abstract class AbstractRepository
             if (is_null($params)) {
                 continue;
             }
-            $params[':'.$attribute] = $value;
+            $params[':'.$attribute] = is_bool($value) ? (int)$value : $value;
         }
         return $attributes;
     }

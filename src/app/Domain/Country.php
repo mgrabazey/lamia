@@ -7,12 +7,12 @@ class Country
     /**
      * @var string
      */
-    private $code;
+    private string $code = '';
 
     /**
      * @var string
      */
-    private $name;
+    private string $name = '';
 
     /**
      * @return string

@@ -4,21 +4,25 @@ namespace Shop\Infra;
 
 use PDO;
 use Shop\App\ContainerInterface;
-use Shop\Domain\Repository\CountryRepositoryInterface;
-use Shop\Domain\Repository\OrderProductRepositoryInterface;
-use Shop\Domain\Repository\OrderRepositoryInterface;
-use Shop\Domain\Repository\ProductRepositoryInterface;
+use Shop\Domain\Repository\CountryInterface;
+use Shop\Domain\Repository\OrderProductInterface;
+use Shop\Domain\Repository\OrderInterface;
+use Shop\Domain\Repository\ProductInterface;
+use Shop\Domain\Repository\TaxInterface;
+use Shop\Domain\Service\DatabaseInterface;
+use Shop\Infra\Db\MySql\Database;
 use Shop\Infra\Db\MySql\Repository\CountryRepository;
 use Shop\Infra\Db\MySql\Repository\OrderProductRepository;
 use Shop\Infra\Db\MySql\Repository\OrderRepository;
 use Shop\Infra\Db\MySql\Repository\ProductRepository;
+use Shop\Infra\Db\MySql\Repository\TaxRepository;
 
 class Container implements ContainerInterface
 {
     /**
      * @var PDO
      */
-    private $databaseConn;
+    private PDO $databaseConn;
 
     /**
      * Factory constructor.
@@ -32,7 +36,15 @@ class Container implements ContainerInterface
     /**
      * @inheritdoc
      */
-    public function countryRepository(): CountryRepositoryInterface
+    public function databaseService(): DatabaseInterface
+    {
+        return new Database($this->databaseConn);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function countryRepository(): CountryInterface
     {
         return new CountryRepository($this->databaseConn);
     }
@@ -40,7 +52,7 @@ class Container implements ContainerInterface
     /**
      * @inheritdoc
      */
-    public function productRepository(): ProductRepositoryInterface
+    public function productRepository(): ProductInterface
     {
         return new ProductRepository($this->databaseConn);
     }
@@ -48,7 +60,7 @@ class Container implements ContainerInterface
     /**
      * @inheritdoc
      */
-    public function orderRepository(): OrderRepositoryInterface
+    public function orderRepository(): OrderInterface
     {
         return new OrderRepository($this->databaseConn);
     }
@@ -56,8 +68,16 @@ class Container implements ContainerInterface
     /**
      * @inheritdoc
      */
-    public function orderProductRepository(): OrderProductRepositoryInterface
+    public function orderProductRepository(): OrderProductInterface
     {
         return new OrderProductRepository($this->databaseConn);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function taxRepository(): TaxInterface
+    {
+        return new TaxRepository($this->databaseConn);
     }
 }

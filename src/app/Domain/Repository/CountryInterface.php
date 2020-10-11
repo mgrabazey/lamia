@@ -4,7 +4,7 @@ namespace Shop\Domain\Repository;
 
 use Shop\Domain\Country;
 
-interface CountryRepositoryInterface
+interface CountryInterface
 {
     /**
      * @return Country[]

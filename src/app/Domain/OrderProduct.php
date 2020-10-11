@@ -7,17 +7,17 @@ class OrderProduct
     /**
      * @var int
      */
-    private $orderId;
+    private int $orderId = 0;
 
     /**
      * @var int
      */
-    private $productId;
+    private int $productId = 0;
 
     /**
      * @var int
      */
-    private $count;
+    private int $count = 0;
 
     /**
      * @return int

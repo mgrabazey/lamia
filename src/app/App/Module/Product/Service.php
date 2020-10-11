@@ -2,7 +2,6 @@
 
 namespace Shop\App\Module\Product;
 
-use Shop\App\Exception\NotFoundException;
 use Shop\App\Module\AbstractService;
 use Shop\Domain\Product;
 

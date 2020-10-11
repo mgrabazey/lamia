@@ -2,6 +2,7 @@
 
 namespace Shop\Api\Transport\Http\Controller;
 
+use Throwable;
 use JsonException;
 use Shop\Api\Protocol\Json\CreateOrder;
 use Shop\Api\Transport\Http\Request;
@@ -14,6 +15,7 @@ class OrderController
      * @param ContainerInterface $container
      * @param Request $request
      * @throws JsonException
+     * @throws Throwable
      */
     public function create(ContainerInterface $container, Request $request)
     {

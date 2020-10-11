@@ -7,12 +7,12 @@ class m20201010_140100_create_table_countries extends AbstractMigration
     /**
      * @var string
      */
-    private $table = 'countries';
+    private string $table = 'countries';
 
     /**
      * @var string[]
      */
-    private $data = [
+    private array $data = [
         ['code' => 'fi', 'name' => 'Finland'],
         ['code' => 'pl', 'name' => 'Poland'],
         ['code' => 'ua', 'name' => 'Ukraine'],
@@ -25,8 +25,8 @@ class m20201010_140100_create_table_countries extends AbstractMigration
     {
         $this->connection->exec(<<<SQL
 CREATE TABLE IF NOT EXISTS {$this->table} (
-  code varchar(2) NOT NULL PRIMARY KEY,
-  name varchar(255) NOT NULL
+  code VARCHAR(2) NOT NULL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
 )
 SQL
         );

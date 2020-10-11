@@ -7,22 +7,32 @@ class Order
     /**
      * @var int
      */
-    private $id;
+    private int $id = 0;
 
     /**
      * @var string
      */
-    private $countryCode;
-
-    /**
-     * @var string
-     */
-    private $email;
+    private string $countryCode = '';
 
     /**
      * @var int
      */
-    private $totalPrice;
+    private int $invoiceFormat = 0;
+
+    /**
+     * @var bool
+     */
+    private bool $sendToEmail = false;
+
+    /**
+     * @var string|null
+     */
+    private ?string $email = null;
+
+    /**
+     * @var float
+     */
+    private float $price = 0;
 
     /**
      * @return int
@@ -57,6 +67,38 @@ class Order
     }
 
     /**
+     * @return int
+     */
+    public function getInvoiceFormat(): int
+    {
+        return $this->invoiceFormat;
+    }
+
+    /**
+     * @param int $invoiceFormat
+     */
+    public function setInvoiceFormat(int $invoiceFormat)
+    {
+        $this->invoiceFormat = $invoiceFormat;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSendToEmail(): bool
+    {
+        return $this->sendToEmail;
+    }
+
+    /**
+     * @param bool $sendToEmail
+     */
+    public function setSendToEmail(bool $sendToEmail)
+    {
+        $this->sendToEmail = $sendToEmail;
+    }
+
+    /**
      * @return string|null
      */
     public function getEmail(): ?string
@@ -67,24 +109,24 @@ class Order
     /**
      * @param string|null $email
      */
-    public function setEmail(string $email = null)
+    public function setEmail(?string $email)
     {
         $this->email = $email;
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getTotalPrice(): int
+    public function getPrice(): float
     {
-        return $this->totalPrice;
+        return $this->price;
     }
 
     /**
-     * @param int $totalPrice
+     * @param float $price
      */
-    public function setTotalPrice(int $totalPrice)
+    public function setPrice(float $price)
     {
-        $this->totalPrice = $totalPrice;
+        $this->price = round($price, 2);
     }
 }

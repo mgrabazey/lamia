@@ -13,7 +13,7 @@ class Router
     /**
      * @var ContainerInterface
      */
-    private $container;
+    private ContainerInterface $container;
 
     // GET api/v1/countries
     // GET api/v1/countries/{id}
@@ -26,7 +26,7 @@ class Router
     // GET api/v1/orders
     // GET api/v1/orders/{id}
     // POST api/v1/orders
-    private $routes = [
+    private array $routes = [
         'countries' => [CountryController::class, 'search'],
         'countries/{id}' => [CountryController::class, 'get'],
         'orders' => [OrderController::class, 'create'],

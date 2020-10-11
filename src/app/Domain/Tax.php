@@ -7,17 +7,17 @@ class Tax
     /**
      * @var string
      */
-    private $countryCode;
+    private string $countryCode = '';
 
     /**
      * @var int
      */
-    private $productId;
+    private int $productId = 0;
 
     /**
      * @var float
      */
-    private $value;
+    private float $value = 0;
 
     /**
      * @return string

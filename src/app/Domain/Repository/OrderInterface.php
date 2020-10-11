@@ -4,7 +4,7 @@ namespace Shop\Domain\Repository;
 
 use Shop\Domain\Order;
 
-interface OrderRepositoryInterface
+interface OrderInterface
 {
     /**
      * @return Order[]

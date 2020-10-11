@@ -8,5 +8,5 @@ class TableName
     const ORDER         = 'orders';
     const PRODUCT       = 'products';
     const ORDER_PRODUCT = 'orders_products';
-    const TAX           = 'texes';
+    const TAX           = 'taxes';
 }

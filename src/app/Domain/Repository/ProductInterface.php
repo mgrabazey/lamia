@@ -4,7 +4,7 @@ namespace Shop\Domain\Repository;
 
 use Shop\Domain\Product;
 
-interface ProductRepositoryInterface
+interface ProductInterface
 {
     /**
      * @return Product[]
@@ -16,4 +16,10 @@ interface ProductRepositoryInterface
      * @return Product
      */
     public function get(string $id): Product;
+
+    /**
+     * @param int[] $id
+     * @return Product[]
+     */
+    public function getByIds(array $id): array;
 }

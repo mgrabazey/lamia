@@ -7,7 +7,7 @@ class m20201010_140102_create_table_taxes extends AbstractMigration
     /**
      * @var string
      */
-    private $table = 'taxes';
+    private string $table = 'taxes';
 
     /**
      * @inheritdoc
@@ -16,9 +16,9 @@ class m20201010_140102_create_table_taxes extends AbstractMigration
     {
         $this->connection->exec(<<<SQL
 CREATE TABLE IF NOT EXISTS {$this->table} (
-  country_code varchar(2) NOT NULL,
+  country_code VARCHAR(2) NOT NULL,
   product_id INT NOT NULL,
-  percent INT NOT NULL,
+  value FLOAT NOT NULL,
   PRIMARY KEY(country_code,product_id)
 )
 SQL
@@ -31,7 +31,7 @@ SQL
                 $data[] = [
                     'country_code' => $countryCode,
                     'product_id' => $productId,
-                    'percent' => random_int(10,20),
+                    'value' => random_int(10,20)/100,
                 ];
             }
         }

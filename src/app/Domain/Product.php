@@ -7,17 +7,22 @@ class Product
     /**
      * @var int
      */
-    private $id;
+    private int $id = 0;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name = '';
 
     /**
      * @var string
      */
-    private $description;
+    private string $description = '';
+
+    /**
+     * @var float
+     */
+    private float $price = 0;
 
     /**
      * @return int
@@ -65,5 +70,21 @@ class Product
     public function setDescription(string $description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price)
+    {
+        $this->price = $price;
     }
 }

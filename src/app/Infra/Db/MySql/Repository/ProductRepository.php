@@ -3,10 +3,10 @@
 namespace Shop\Infra\Db\MySql\Repository;
 
 use Shop\Domain\Product;
-use Shop\Domain\Repository\ProductRepositoryInterface;
+use Shop\Domain\Repository\ProductInterface;
 use Shop\Infra\Db\TableName;
 
-class ProductRepository extends AbstractRepository implements ProductRepositoryInterface
+class ProductRepository extends AbstractRepository implements ProductInterface
 {
     /**
      * @inheritdoc
@@ -39,4 +39,14 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
     {
         return $this->fetchByPrimaryKey($id);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getByIds(array $ids): array
+    {
+        return $this->fetchByPrimaryKeys($ids);
+    }
+
+
 }

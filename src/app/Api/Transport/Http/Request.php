@@ -7,12 +7,12 @@ class Request
     /**
      * @var array
      */
-    private $vars = [];
+    private array $vars = [];
 
     /**
      * @var string|null
      */
-    private $raw;
+    private ?string $raw = null;
 
     /**
      * @param string $name

@@ -11,12 +11,22 @@ class CreateOrder
     /**
      * @var string
      */
-    public $countryCode;
+    public string $countryCode = '';
+
+    /**
+     * @var int
+     */
+    public int $invoiceFormat = 0;
+
+    /**
+     * @var bool
+     */
+    public bool $sendToEmail = false;
 
     /**
      * @var string|null
      */
-    public $email;
+    public ?string $email = null;
 
     /**
      * @var int[]
@@ -25,7 +35,7 @@ class CreateOrder
      *  ...
      * ]
      */
-    public $products;
+    public array $products = [];
 
     /**
      * @param string $raw
@@ -45,9 +55,11 @@ class CreateOrder
     private function __construct(string $raw)
     {
         $arr = json_decode($raw, true, 512, JSON_THROW_ON_ERROR);
-        $this->countryCode = $arr['country_code'];
-        $this->email = $arr['email'];
-        $this->products = $arr['products'];
+        $this->countryCode = $arr['country_code'] ?? '';
+        $this->invoiceFormat = $arr['invoice_format'] ?? 0;
+        $this->sendToEmail = $arr['send_to_email'] ?? false;
+        $this->email = $arr['email'] ?? null;
+        $this->products = $arr['products'] ?? [];
     }
 
     /**
@@ -57,6 +69,8 @@ class CreateOrder
     {
         $order = new Order();
         $order->setCountryCode($this->countryCode);
+        $order->setInvoiceFormat($this->invoiceFormat);
+        $order->setSendToEmail($this->sendToEmail);
         $order->setEmail($this->email);
         return $order;
     }

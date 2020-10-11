@@ -2,30 +2,42 @@
 
 namespace Shop\App;
 
-use Shop\Domain\Repository\CountryRepositoryInterface;
-use Shop\Domain\Repository\OrderProductRepositoryInterface;
-use Shop\Domain\Repository\OrderRepositoryInterface;
-use Shop\Domain\Repository\ProductRepositoryInterface;
+use Shop\Domain\Repository\CountryInterface;
+use Shop\Domain\Repository\OrderProductInterface;
+use Shop\Domain\Repository\OrderInterface;
+use Shop\Domain\Repository\ProductInterface;
+use Shop\Domain\Repository\TaxInterface;
+use Shop\Domain\Service\DatabaseInterface;
 
 interface ContainerInterface
 {
     /**
-     * @return CountryRepositoryInterface
+     * @return DatabaseInterface
      */
-    public function countryRepository(): CountryRepositoryInterface;
+    public function databaseService(): DatabaseInterface;
 
     /**
-     * @return ProductRepositoryInterface
+     * @return CountryInterface
      */
-    public function productRepository(): ProductRepositoryInterface;
+    public function countryRepository(): CountryInterface;
 
     /**
-     * @return OrderRepositoryInterface
+     * @return ProductInterface
      */
-    public function orderRepository(): OrderRepositoryInterface;
+    public function productRepository(): ProductInterface;
 
     /**
-     * @return OrderProductRepositoryInterface
+     * @return OrderInterface
      */
-    public function orderProductRepository(): OrderProductRepositoryInterface;
+    public function orderRepository(): OrderInterface;
+
+    /**
+     * @return OrderProductInterface
+     */
+    public function orderProductRepository(): OrderProductInterface;
+
+    /**
+     * @return TaxInterface
+     */
+    public function taxRepository(): TaxInterface;
 }

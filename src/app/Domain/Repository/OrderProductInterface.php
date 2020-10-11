@@ -4,7 +4,7 @@ namespace Shop\Domain\Repository;
 
 use Shop\Domain\OrderProduct;
 
-interface OrderProductRepositoryInterface
+interface OrderProductInterface
 {
     /**
      * @param OrderProduct $orderProduct

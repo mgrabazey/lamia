@@ -9,7 +9,7 @@ abstract class AbstractService
     /**
      * @var ContainerInterface
      */
-    protected $container;
+    protected ContainerInterface $container;
 
     /**
      * @param ContainerInterface $container

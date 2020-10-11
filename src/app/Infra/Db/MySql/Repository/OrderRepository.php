@@ -2,12 +2,11 @@
 
 namespace Shop\Infra\Db\MySql\Repository;
 
-use Shop\Domain\Country;
 use Shop\Domain\Order;
-use Shop\Domain\Repository\OrderRepositoryInterface;
+use Shop\Domain\Repository\OrderInterface;
 use Shop\Infra\Db\TableName;
 
-class OrderRepository extends AbstractRepository implements OrderRepositoryInterface
+class OrderRepository extends AbstractRepository implements OrderInterface
 {
     /**
      * @inheritdoc
