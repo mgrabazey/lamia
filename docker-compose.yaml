@@ -5,6 +5,8 @@ services:
     build: ./php-fpm
     volumes:
       - ./:/var/www/app
+      - ./php-fpm/entrypoint.sh:/entrypoint.sh
+    entrypoint: ["/entrypoint.sh"]
 
   composer:
     image: composer:1.10.13
@@ -30,4 +32,7 @@ services:
       MYSQL_PASSWORD: shop
       MYSQL_DATABASE: shop
     volumes:
-      - ./mysql/data:/var/lib/mysql
+      - db:/var/lib/mysql
+
+volumes:
+  db:

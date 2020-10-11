@@ -5,8 +5,12 @@ namespace Shop\Infra;
 use PDO;
 use Shop\App\ContainerInterface;
 use Shop\Domain\Repository\CountryRepositoryInterface;
+use Shop\Domain\Repository\OrderProductRepositoryInterface;
+use Shop\Domain\Repository\OrderRepositoryInterface;
 use Shop\Domain\Repository\ProductRepositoryInterface;
 use Shop\Infra\Db\MySql\Repository\CountryRepository;
+use Shop\Infra\Db\MySql\Repository\OrderProductRepository;
+use Shop\Infra\Db\MySql\Repository\OrderRepository;
 use Shop\Infra\Db\MySql\Repository\ProductRepository;
 
 class Container implements ContainerInterface
@@ -39,5 +43,21 @@ class Container implements ContainerInterface
     public function productRepository(): ProductRepositoryInterface
     {
         return new ProductRepository($this->databaseConn);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function orderRepository(): OrderRepositoryInterface
+    {
+        return new OrderRepository($this->databaseConn);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function orderProductRepository(): OrderProductRepositoryInterface
+    {
+        return new OrderProductRepository($this->databaseConn);
     }
 }

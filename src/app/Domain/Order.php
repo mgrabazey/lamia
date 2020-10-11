@@ -20,6 +20,11 @@ class Order
     private $email;
 
     /**
+     * @var int
+     */
+    private $totalPrice;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -65,5 +70,21 @@ class Order
     public function setEmail(string $email = null)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalPrice(): int
+    {
+        return $this->totalPrice;
+    }
+
+    /**
+     * @param int $totalPrice
+     */
+    public function setTotalPrice(int $totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
     }
 }

@@ -48,7 +48,7 @@ abstract class AbstractRepository
         $models = [];
         foreach ($data as $item) {
             $model = $this->model();
-            $this->fillModel($model, $item);
+            $this->fromAttributes($model, $item);
             $models[] = $model;
         }
         return $models;
@@ -64,15 +64,30 @@ abstract class AbstractRepository
         $query->execute([':pk' => $primaryKey]);
         $data = $query->fetch();
         $model = $this->model();
-        $this->fillModel($model, $data);
+        $this->fromAttributes($model, $data);
         return $model;
+    }
+
+    /**
+     * @param $model
+     * @return int|string
+     */
+    protected function insert($model)
+    {
+        $params = [];
+        $attributes = $this->toAttributes($model, $params);
+        $columns = implode(',', array_keys($attributes));
+        $values = implode(',', array_keys($params));
+        $query = $this->connection->prepare("INSERT INTO {$this->table()} ({$columns}) VALUES ({$values})");
+        $query->execute($params);
+        return $this->connection->lastInsertId();
     }
 
     /**
      * @param $model
      * @param array $attributes
      */
-    private function fillModel($model, array $attributes)
+    private function fromAttributes($model, array $attributes)
     {
         $refModel = new ReflectionObject($model);
         foreach ($attributes as $name => $value) {
@@ -87,5 +102,30 @@ abstract class AbstractRepository
             $refProperty->setAccessible(true);
             $refProperty->setValue($model, $value);
         }
+    }
+
+    /**
+     * @param $model
+     * @param array|null $params
+     * @return array
+     */
+    private function toAttributes($model, array &$params = null): array
+    {
+        $refModel = new ReflectionObject($model);
+        $attributes = [];
+        foreach ($refModel->getProperties() as $refProperty) {
+            $refProperty->setAccessible(true);
+            $attribute = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $refProperty->getName()));
+            $value = $refProperty->getValue($model);
+            if ($this->primaryKey === $attribute && is_null($value)) {
+                continue;
+            }
+            $attributes[$attribute] = $value;
+            if (is_null($params)) {
+                continue;
+            }
+            $params[':'.$attribute] = $value;
+        }
+        return $attributes;
     }
 }

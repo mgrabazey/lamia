@@ -2,6 +2,10 @@
 
 namespace Shop\Api\Transport\Http;
 
+use Shop\Api\Transport\Http\Controller\CountryController;
+use Shop\Api\Transport\Http\Controller\OrderController;
+use Shop\Api\Transport\Http\Tree\Group;
+use Shop\Api\Transport\Http\Tree\Handler;
 use Shop\App\ContainerInterface;
 
 class Router
@@ -21,10 +25,14 @@ class Router
     // GET api/v1/products/{id}
     // GET api/v1/orders
     // GET api/v1/orders/{id}
+    // POST api/v1/orders
     private $routes = [
         'countries' => [CountryController::class, 'search'],
         'countries/{id}' => [CountryController::class, 'get'],
+        'orders' => [OrderController::class, 'create'],
     ];
+
+//    private $group;
 
     /**
      * Router constructor.
@@ -33,6 +41,13 @@ class Router
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+
+//        $this->group = Group::instance('api/v1')->addGroup(
+//            Group::instance('countries')->addHandler(
+//                Handler::instance('GET', '', [CountryController::class, 'search']),
+//                Handler::instance('GET', '{id}', [CountryController::class, 'get']),
+//            )
+//        );
     }
 
     /**
@@ -40,6 +55,9 @@ class Router
      */
     public function handle()
     {
+//        $inMethod = $_SERVER['REQUEST_METHOD'];
+//        $inParts = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+
         $inParts = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
         foreach ($this->routes as $pattern => $handler) {
             $parts = explode('/', trim($pattern, '/'));

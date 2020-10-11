@@ -10,6 +10,11 @@ class Request
     private $vars = [];
 
     /**
+     * @var string|null
+     */
+    private $raw;
+
+    /**
      * @param string $name
      * @param null $default
      * @return mixed
@@ -27,6 +32,17 @@ class Request
     public function post(string $name, $default = null)
     {
         return $_POST[$name] ?? $default;
+    }
+
+    /**
+     * @return string
+     */
+    public function raw(): string
+    {
+        if (is_null($this->raw)) {
+            $this->raw = file_get_contents('php://input');
+        }
+        return $this->raw;
     }
 
     /**
