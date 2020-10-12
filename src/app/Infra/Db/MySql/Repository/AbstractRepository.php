@@ -127,7 +127,7 @@ abstract class AbstractRepository
         foreach ($attributes as $name => $value) {
             try {
                 // by the doc property names are case insensitive
-                $name = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $name))));
+                $name = '_' . lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $name))));
                 $refProperty = $refModel->getProperty($name);
 
             } catch (ReflectionException $e) {
@@ -149,7 +149,11 @@ abstract class AbstractRepository
         $attributes = [];
         foreach ($refModel->getProperties() as $refProperty) {
             $refProperty->setAccessible(true);
-            $attribute = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $refProperty->getName()));
+            $attribute = $refProperty->getName();
+            if ($attribute[0] !== '_') {
+                continue;
+            }
+            $attribute = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', substr($attribute, 1)));
             $value = $refProperty->getValue($model);
             if ($this->primaryKey === $attribute && is_null($value)) {
                 continue;

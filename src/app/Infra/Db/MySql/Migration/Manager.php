@@ -12,17 +12,17 @@ class Manager
     /**
      * @var PDO
      */
-    protected $connection;
+    protected PDO $connection;
 
     /**
      * @var string
      */
-    private $dir;
+    private string $dir;
 
     /**
      * @var string
      */
-    private $table = 'migrations';
+    private string $table = 'migrations';
 
     /**
      * Manager constructor.

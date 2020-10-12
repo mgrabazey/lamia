@@ -7,27 +7,27 @@ class Country
     /**
      * @var string
      */
-    private string $code = '';
+    private string $_code = '';
 
     /**
      * @var string
      */
-    private string $name = '';
+    private string $_name = '';
 
     /**
      * @return string
      */
     public function getCode(): string
     {
-        return $this->code;
+        return $this->_code;
     }
 
     /**
-     * @param string $code
+     * @param string $_code
      */
-    public function setCode(string $code)
+    public function setCode(string $_code)
     {
-        $this->code = $code;
+        $this->_code = $_code;
     }
 
     /**
@@ -35,14 +35,14 @@ class Country
      */
     public function getName(): string
     {
-        return $this->name;
+        return $this->_name;
     }
 
     /**
-     * @param string $name
+     * @param string $_name
      */
-    public function setName(string $name)
+    public function setName(string $_name)
     {
-        $this->name = $name;
+        $this->_name = $_name;
     }
 }

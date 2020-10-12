@@ -1,8 +1,8 @@
 <?php
 
-namespace Shop\App\Calculator;
+namespace Shop\Domain\Observer\Price;
 
-interface EndObserverInterface
+interface EndInterface
 {
     /**
      * @param float $price

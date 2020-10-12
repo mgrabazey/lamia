@@ -1,6 +1,11 @@
 {
   "name": "mgrabazey/lamia",
   "description": "Lamia OY Practical Task",
+  "require": {
+    "php": "^7.4",
+    "ext-pdo": "^7.4",
+    "phpmailer/phpmailer": "~6.1"
+  },
   "autoload": {
     "psr-4": {
       "Shop\\": "src/app/"

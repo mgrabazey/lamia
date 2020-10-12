@@ -8,6 +8,7 @@ use Shop\Domain\Repository\OrderInterface;
 use Shop\Domain\Repository\ProductInterface;
 use Shop\Domain\Repository\TaxInterface;
 use Shop\Domain\Service\DatabaseInterface;
+use Shop\Domain\Service\MailerInterface;
 
 interface ContainerInterface
 {
@@ -15,6 +16,11 @@ interface ContainerInterface
      * @return DatabaseInterface
      */
     public function databaseService(): DatabaseInterface;
+
+    /**
+     * @return MailerInterface
+     */
+    public function mailerService(): MailerInterface;
 
     /**
      * @return CountryInterface

@@ -1,11 +1,11 @@
 <?php
 
-namespace Shop\App\Calculator;
+namespace Shop\Domain\Observer\Price;
 
 use Shop\Domain\OrderProduct;
 use Shop\Domain\Product;
 
-class StartObserverProduct
+class StartProduct
 {
     /**
      * @var int

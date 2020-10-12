@@ -1,8 +1,11 @@
 <?php
 
-namespace Shop\App\Calculator;
+namespace Shop\App\Module\Order;
 
 use Shop\App\ContainerInterface;
+use Shop\Domain\Observer\Price\EndInterface;
+use Shop\Domain\Observer\Price\StartInterface;
+use Shop\Domain\Observer\Price\StartProduct;
 use Shop\Domain\Order;
 use Shop\Domain\OrderProduct;
 use Shop\Domain\Product;
@@ -25,12 +28,12 @@ class Calculator
     private array $orderProducts;
 
     /**
-     * @var StartObserverInterface[]
+     * @var StartInterface[]
      */
     private array $onStartObservers = [];
 
     /**
-     * @var EndObserverInterface[]
+     * @var EndInterface[]
      */
     private array $onEndObservers = [];
 
@@ -40,7 +43,7 @@ class Calculator
     private float $price = 0;
 
     /**
-     * @var StartObserverProduct[]
+     * @var StartProduct[]
      */
     private array $products;
 
@@ -71,7 +74,7 @@ class Calculator
         );
         $this->products = array_map(
             fn(Product $product) =>
-                new StartObserverProduct($product, $orderProductsMap[$product->getId()]),
+                new StartProduct($product, $orderProductsMap[$product->getId()]),
             $products
         );
         $this->notifyOnStart();
@@ -83,17 +86,17 @@ class Calculator
     }
 
     /**
-     * @param StartObserverInterface $observer
+     * @param StartInterface $observer
      */
-    public function attachOnStart(StartObserverInterface $observer)
+    public function attachOnStart(StartInterface $observer)
     {
         $this->onStartObservers[] = $observer;
     }
 
     /**
-     * @param EndObserverInterface $observer
+     * @param EndInterface $observer
      */
-    public function attachOnEnd(EndObserverInterface $observer)
+    public function attachOnEnd(EndInterface $observer)
     {
         $this->onEndObservers[] = $observer;
     }

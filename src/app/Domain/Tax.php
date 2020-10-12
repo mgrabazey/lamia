@@ -7,32 +7,32 @@ class Tax
     /**
      * @var string
      */
-    private string $countryCode = '';
+    private string $_countryCode = '';
 
     /**
      * @var int
      */
-    private int $productId = 0;
+    private int $_productId = 0;
 
     /**
      * @var float
      */
-    private float $value = 0;
+    private float $_value = 0;
 
     /**
      * @return string
      */
     public function getCountryCode(): string
     {
-        return $this->countryCode;
+        return $this->_countryCode;
     }
 
     /**
-     * @param string $countryCode
+     * @param string $_countryCode
      */
-    public function setCountryCode(string $countryCode)
+    public function setCountryCode(string $_countryCode)
     {
-        $this->countryCode = $countryCode;
+        $this->_countryCode = $_countryCode;
     }
 
     /**
@@ -40,15 +40,15 @@ class Tax
      */
     public function getProductId(): int
     {
-        return $this->productId;
+        return $this->_productId;
     }
 
     /**
-     * @param int $productId
+     * @param int $_productId
      */
-    public function setProductId(int $productId)
+    public function setProductId(int $_productId)
     {
-        $this->productId = $productId;
+        $this->_productId = $_productId;
     }
 
     /**
@@ -56,14 +56,14 @@ class Tax
      */
     public function getValue(): float
     {
-        return $this->value;
+        return $this->_value;
     }
 
     /**
-     * @param float $value
+     * @param float $_value
      */
-    public function setValue(float $value)
+    public function setValue(float $_value)
     {
-        $this->value = $value;
+        $this->_value = $_value;
     }
 }

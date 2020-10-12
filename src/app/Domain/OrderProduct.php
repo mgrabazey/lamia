@@ -7,32 +7,32 @@ class OrderProduct
     /**
      * @var int
      */
-    private int $orderId = 0;
+    private int $_orderId = 0;
 
     /**
      * @var int
      */
-    private int $productId = 0;
+    private int $_productId = 0;
 
     /**
      * @var int
      */
-    private int $count = 0;
+    private int $_count = 0;
 
     /**
      * @return int
      */
     public function getOrderId(): int
     {
-        return $this->orderId;
+        return $this->_orderId;
     }
 
     /**
-     * @param int $orderId
+     * @param int $_orderId
      */
-    public function setOrderId(int $orderId)
+    public function setOrderId(int $_orderId)
     {
-        $this->orderId = $orderId;
+        $this->_orderId = $_orderId;
     }
 
     /**
@@ -40,15 +40,15 @@ class OrderProduct
      */
     public function getProductId(): int
     {
-        return $this->productId;
+        return $this->_productId;
     }
 
     /**
-     * @param int $productId
+     * @param int $_productId
      */
-    public function setProductId(int $productId)
+    public function setProductId(int $_productId)
     {
-        $this->productId = $productId;
+        $this->_productId = $_productId;
     }
 
     /**
@@ -56,14 +56,14 @@ class OrderProduct
      */
     public function getCount(): int
     {
-        return $this->count;
+        return $this->_count;
     }
 
     /**
-     * @param int $count
+     * @param int $_count
      */
-    public function setCount(int $count)
+    public function setCount(int $_count)
     {
-        $this->count = $count;
+        $this->_count = $_count;
     }
 }

@@ -1,11 +1,10 @@
 <?php
 
+namespace Shop\App\Module\Order\Calculator;
 
-namespace Shop\App\Calculator\Observer;
+use Shop\Domain\Observer\Price\EndInterface;
 
-use Shop\App\Calculator\EndObserverInterface;
-
-class FineIfSmall implements EndObserverInterface
+class FineIfSmall implements EndInterface
 {
     /**
      * @inheritdoc

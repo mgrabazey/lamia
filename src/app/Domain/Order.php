@@ -2,52 +2,77 @@
 
 namespace Shop\Domain;
 
+use Shop\Domain\Observer\Order\OrderInterface;
+
 class Order
 {
     /**
+     * @var OrderInterface[]
+     */
+    private array $onCreateObservers = [];
+
+    /**
      * @var int
      */
-    private int $id = 0;
+    private int $_id = 0;
 
     /**
      * @var string
      */
-    private string $countryCode = '';
+    private string $_countryCode = '';
 
     /**
      * @var int
      */
-    private int $invoiceFormat = 0;
+    private int $_invoiceFormat = 0;
 
     /**
      * @var bool
      */
-    private bool $sendToEmail = false;
+    private bool $_sendToEmail = false;
 
     /**
      * @var string|null
      */
-    private ?string $email = null;
+    private ?string $_email = null;
 
     /**
      * @var float
      */
-    private float $price = 0;
+    private float $_price = 0;
+
+    /**
+     * @param OrderInterface $observer
+     */
+    public function attachOnCreate(OrderInterface $observer)
+    {
+        $this->onCreateObservers[] = $observer;
+    }
+
+    /**
+     * Notify On Create.
+     */
+    public function notifyOnCreate()
+    {
+        foreach ($this->onCreateObservers as $observer) {
+            $observer->update($this);
+        }
+    }
 
     /**
      * @return int
      */
     public function getId(): int
     {
-        return $this->id;
+        return $this->_id;
     }
 
     /**
-     * @param int $id
+     * @param int $_id
      */
-    public function setId(int $id)
+    public function setId(int $_id)
     {
-        $this->id = $id;
+        $this->_id = $_id;
     }
 
     /**
@@ -55,15 +80,15 @@ class Order
      */
     public function getCountryCode(): string
     {
-        return $this->countryCode;
+        return $this->_countryCode;
     }
 
     /**
-     * @param string $countryCode
+     * @param string $_countryCode
      */
-    public function setCountryCode(string $countryCode)
+    public function setCountryCode(string $_countryCode)
     {
-        $this->countryCode = $countryCode;
+        $this->_countryCode = $_countryCode;
     }
 
     /**
@@ -71,15 +96,15 @@ class Order
      */
     public function getInvoiceFormat(): int
     {
-        return $this->invoiceFormat;
+        return $this->_invoiceFormat;
     }
 
     /**
-     * @param int $invoiceFormat
+     * @param int $_invoiceFormat
      */
-    public function setInvoiceFormat(int $invoiceFormat)
+    public function setInvoiceFormat(int $_invoiceFormat)
     {
-        $this->invoiceFormat = $invoiceFormat;
+        $this->_invoiceFormat = $_invoiceFormat;
     }
 
     /**
@@ -87,15 +112,15 @@ class Order
      */
     public function getSendToEmail(): bool
     {
-        return $this->sendToEmail;
+        return $this->_sendToEmail;
     }
 
     /**
-     * @param bool $sendToEmail
+     * @param bool $_sendToEmail
      */
-    public function setSendToEmail(bool $sendToEmail)
+    public function setSendToEmail(bool $_sendToEmail)
     {
-        $this->sendToEmail = $sendToEmail;
+        $this->_sendToEmail = $_sendToEmail;
     }
 
     /**
@@ -103,15 +128,15 @@ class Order
      */
     public function getEmail(): ?string
     {
-        return $this->email;
+        return $this->_email;
     }
 
     /**
-     * @param string|null $email
+     * @param string|null $_email
      */
-    public function setEmail(?string $email)
+    public function setEmail(?string $_email)
     {
-        $this->email = $email;
+        $this->_email = $_email;
     }
 
     /**
@@ -119,14 +144,14 @@ class Order
      */
     public function getPrice(): float
     {
-        return $this->price;
+        return $this->_price;
     }
 
     /**
-     * @param float $price
+     * @param float $_price
      */
-    public function setPrice(float $price)
+    public function setPrice(float $_price)
     {
-        $this->price = round($price, 2);
+        $this->_price = round($_price, 2);
     }
 }

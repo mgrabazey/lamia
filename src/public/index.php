@@ -5,14 +5,9 @@ use Shop\Api\Transport\Http\Router;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
-$dbConfig = require_once __DIR__.'/../config/database.php';
-$conn = new PDO(
-    "mysql:host={$dbConfig['host']};port={$dbConfig['port']};dbname={$dbConfig['name']}",
-    $dbConfig['user'],
-    $dbConfig['pass']
-);
-$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$container = new Container($conn);
+$pdo = require_once __DIR__.'/../bootstrap/database.php';
+$mailer = require_once __DIR__.'/../bootstrap/mailer.php';
+
+$container = new Container($pdo, $mailer);
 
 (new Router($container))->handle();

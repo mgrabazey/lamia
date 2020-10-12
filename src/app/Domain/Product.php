@@ -7,37 +7,37 @@ class Product
     /**
      * @var int
      */
-    private int $id = 0;
+    private int $_id = 0;
 
     /**
      * @var string
      */
-    private string $name = '';
+    private string $_name = '';
 
     /**
      * @var string
      */
-    private string $description = '';
+    private string $_description = '';
 
     /**
      * @var float
      */
-    private float $price = 0;
+    private float $_price = 0;
 
     /**
      * @return int
      */
     public function getId(): int
     {
-        return $this->id;
+        return $this->_id;
     }
 
     /**
-     * @param int $id
+     * @param int $_id
      */
-    public function setId(int $id)
+    public function setId(int $_id)
     {
-        $this->id = $id;
+        $this->_id = $_id;
     }
 
     /**
@@ -45,15 +45,15 @@ class Product
      */
     public function getName(): string
     {
-        return $this->name;
+        return $this->_name;
     }
 
     /**
-     * @param string $name
+     * @param string $_name
      */
-    public function setName(string $name)
+    public function setName(string $_name)
     {
-        $this->name = $name;
+        $this->_name = $_name;
     }
 
     /**
@@ -61,15 +61,15 @@ class Product
      */
     public function getDescription(): string
     {
-        return $this->description;
+        return $this->_description;
     }
 
     /**
-     * @param string $description
+     * @param string $_description
      */
-    public function setDescription(string $description)
+    public function setDescription(string $_description)
     {
-        $this->description = $description;
+        $this->_description = $_description;
     }
 
     /**
@@ -77,14 +77,14 @@ class Product
      */
     public function getPrice(): int
     {
-        return $this->price;
+        return $this->_price;
     }
 
     /**
-     * @param float $price
+     * @param float $_price
      */
-    public function setPrice(float $price)
+    public function setPrice(float $_price)
     {
-        $this->price = $price;
+        $this->_price = $_price;
     }
 }
