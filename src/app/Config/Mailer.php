@@ -12,12 +12,12 @@ class Mailer extends AbstractConfig
     /**
      * @var string
      */
-    public string $user = 'mgrabazey@gmail.com';
+    public string $user = '';
 
     /**
      * @var string
      */
-    public string $pass = 'Deserteagle860';
+    public string $pass = '';
 
     /**
      * @var int
