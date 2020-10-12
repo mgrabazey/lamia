@@ -3,7 +3,6 @@
 namespace Shop\Api\Transport\Http\Controller;
 
 use Shop\Api\Protocol\Json\CountriesResponse;
-use Shop\Api\Protocol\Json\CountryResponse;
 use Shop\Api\Transport\Http\Request;
 use Shop\App\ContainerInterface;
 use Shop\App\Module\Country\Service;

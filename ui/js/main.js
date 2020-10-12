@@ -1,5 +1,7 @@
 $(document).ready(function (){
     const api = 'http://127.0.0.1:8080/api/v1';
+    const cheapVal = 200
+    const cheapTax = 10
     const pageIds = {
         loading: 'loading',
         countries: 'countries',
@@ -30,12 +32,13 @@ $(document).ready(function (){
             switchPages(pageIds.countries);
             pageElems.countries.find('.country').click(onCuontryClick)
         },
-        error: onError
+        error: onError,
     });
 
     function switchPages(show) {
+        $('#error').text('')
         for (page in pageElems) {
-            if (show == page) {
+            if (show === page) {
                 pageElems[page].show();
             } else {
                 pageElems[page].hide();
@@ -45,6 +48,7 @@ $(document).ready(function (){
 
     function onError(error) {
         console.log(error);
+        $('#error').html(error.status+' '+error.statusText+'<br>'+error.responseText);
     }
 
     function onCuontryClick() {
@@ -60,7 +64,7 @@ $(document).ready(function (){
                             '<div>Name: '+product.name+'</div>' +
                             '<div>Description: '+product.description+'</div>' +
                             '<div>Base Price: '+Number(product.price).toFixed(2)+'$</div>' +
-                            '<div>Country Tax: '+product.tax*100+'%</div>' +
+                            '<div>Country Tax: '+Number(product.tax*100).toFixed(2)+'%</div>' +
                             '<div>Total Price: '+Number(product.price*(1+product.tax)).toFixed(2)+'$</div>' +
                             'price of <input min="0" data-id="'+product.id+'" type="number" value="0"> items' +
                             ' = <span data-id="'+product.id+'">0</span>$' +
@@ -72,7 +76,7 @@ $(document).ready(function (){
                 pageElems.order.find('#order-list input').change(onProductCountChanged);
                 pageElems.order.find('button').click(onOrderConfirmed);
             },
-            error: onError
+            error: onError,
         });
     }
 
@@ -86,13 +90,13 @@ $(document).ready(function (){
             }
             total += Number(price.text());
         });
-        if (total > 0 && total < 200) {
-            pageElems.order.find('#order-price span').text(Number(total+10).toFixed(2));
-            pageElems.order.find('#order-price i').text('(with 10$ fine because total products price less than 200$)')
+        if (total > 0 && total < cheapVal) {
+            pageElems.order.find('#order-price span').text(Number(total+cheapTax).toFixed(2));
+            pageElems.order.find('#order-price i').text('(with '+cheapTax+'$ fine because total products price less than '+cheapVal+'$)');
 
         } else {
             pageElems.order.find('#order-price span').text(Number(total).toFixed(2));
-            pageElems.order.find('#order-price i').text('')
+            pageElems.order.find('#order-price i').text('');
         }
     }
 
@@ -101,13 +105,13 @@ $(document).ready(function (){
             country_code: country,
             invoice_format: Number($('#order input[name="invoice_format"]:checked').val()),
             email: $('#order input[type="email"]').val(),
-            send_to_email: $('#order input[type="checkbox"]').val() == 'on',
+            send_to_email: $('#order input[name="send"]:checked').length > 0,
             products: {}
         }
         $('#order-list input[data-id]').each(function () {
             count = Number($(this).val());
             if (count > 0) {
-                order.products[$(this).attr('data-id')] = count
+                order.products[$(this).attr('data-id')] = count;
             }
         })
         $.ajax({
@@ -116,10 +120,21 @@ $(document).ready(function (){
             data: JSON.stringify(order),
             dataType: "json",
             success: function (result) {
-
+                html = ''
+                html += '<div>order id: '+result.id+'</div>'
+                result.products.forEach(function (product) {
+                    html += '<div>'+
+                            product.product.name+
+                            ' (#'+product.count+')'+
+                            ' = '+Number(product.count*product.product.price*(1+product.product.tax)).toFixed(2)+
+                            '$ (with tax '+Number(product.product.tax*100).toFixed(2)+'%)'
+                        '</div>'
+                })
+                html += '<div>total price: '+result.price+'$</div>'
+                $('#summary-data').html(html)
                 switchPages(pageIds.summary)
             },
-            error: onError
+            error: onError,
         });
     }
 })

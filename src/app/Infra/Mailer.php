@@ -27,6 +27,7 @@ class Mailer implements MailerInterface
     public function send(string $from, string $to, string $subject, string $body): bool
     {
         $driver = clone $this->driver;
+        $driver->isHTML(true);
         $driver->setFrom($from);
         $driver->addAddress($to);
         $driver->Subject = $subject;

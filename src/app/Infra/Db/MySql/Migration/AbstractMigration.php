@@ -10,7 +10,7 @@ abstract class AbstractMigration
     /**
      * @var PDO
      */
-    protected $connection;
+    protected PDO $connection;
 
     /**
      * AbstractMigration constructor.

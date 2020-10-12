@@ -8,7 +8,6 @@ use Shop\Domain\Observer\Price\StartInterface;
 use Shop\Domain\Observer\Price\StartProduct;
 use Shop\Domain\Order;
 use Shop\Domain\OrderProduct;
-use Shop\Domain\Product;
 
 class Calculator
 {

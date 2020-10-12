@@ -4,10 +4,11 @@ namespace Shop\App\Module\Order;
 
 use Shop\App\Module\Order\Calculator\CountryTax;
 use Shop\App\Module\Order\Calculator\FineIfSmall;
+use Shop\Domain\Exception\BadRequestException;
+use Shop\Domain\Validator\OrderValidator;
 use Throwable;
 use Shop\App\Module\AbstractService;
 use Shop\Domain\Order;
-use Shop\Domain\OrderProduct;
 
 class Service extends AbstractService
 {
@@ -34,6 +35,10 @@ class Service extends AbstractService
      */
     public function create(Order $order)
     {
+        $errors = OrderValidator::validate($order);
+        if ($errors) {
+            throw new BadRequestException($errors);
+        }
         $db = $this->container->databaseService();
         $db->beginTransaction();
         try {

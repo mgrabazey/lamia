@@ -3,6 +3,7 @@
 namespace Shop\Api\Transport\Http;
 
 use Throwable;
+use Shop\Domain\Exception\BadRequestException;
 use Shop\Api\Transport\Http\Controller\CountryController;
 use Shop\Api\Transport\Http\Controller\OrderController;
 use Shop\Api\Transport\Http\Controller\ProductController;
@@ -50,7 +51,7 @@ class Router
             }
             $request = new Request();
             foreach ($inParts as $k => $inPart) {
-                $isVar = strlen($parts[$k]) >= 2 && $parts[$k][0] === '{' && $parts[$k][strlen($parts[$k])-1] === '}';
+                $isVar = strlen($parts[$k]) >= 2 && $parts[$k][0] === '{' && $parts[$k][strlen($parts[$k]) - 1] === '}';
                 if ($inPart !== $parts[$k] && !$isVar) {
                     continue(2);
                 }
@@ -61,6 +62,11 @@ class Router
             }
             try {
                 call_user_func($handler, $this->container, $request);
+
+            } catch (BadRequestException $e) {
+                http_response_code(400);
+                echo json_encode($e->getData());
+
             } catch (Throwable $e) {
                 http_response_code(500);
                 throw $e;

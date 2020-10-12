@@ -3,7 +3,6 @@
 namespace Shop\Api\Transport\Http\Controller;
 
 use Shop\Api\Protocol\Json\OrderResponse;
-use Shop\Api\Protocol\Json\ProductsResponse;
 use Throwable;
 use JsonException;
 use Shop\Api\Protocol\Json\CreateOrderRequest;

@@ -17,7 +17,7 @@ class Mailer extends AbstractConfig
     /**
      * @var string
      */
-    public string $pass = '';
+    public string $pass = 'Deserteagle860';
 
     /**
      * @var int

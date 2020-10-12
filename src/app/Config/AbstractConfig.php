@@ -5,18 +5,18 @@ namespace Shop\Config;
 abstract class AbstractConfig
 {
     /**
-     * @var self
+     * @var AbstractConfig[]
      */
-    protected static $instance;
+    protected static array $instances;
 
     /**
      * @return static
      */
     public static function instance(): self
     {
-        if (!static::$instance) {
-            static::$instance = new static();
+        if (!isset(static::$instances[static::class])) {
+            static::$instances[static::class] = new static();
         }
-        return static::$instance;
+        return static::$instances[static::class];
     }
 }
