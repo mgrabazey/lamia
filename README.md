@@ -1,5 +1,4 @@
-Test Shop
-***
+##Test Shop
 
 ### Run:
 ```shell script
@@ -7,7 +6,7 @@ $ docker-compose up -d
 ```
 
 ### UI
-Very simple, just for testing API: http://127.0.0.1:80
+Very simple, just for test: http://127.0.0.1:80
 
 ### API Endpoints
 
