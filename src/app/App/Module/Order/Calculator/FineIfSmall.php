@@ -11,8 +11,9 @@ class FineIfSmall implements EndInterface
      */
     public function update(float &$price)
     {
-        if ($price < 500) {
-            $price += 50;
+        // TODO move values to config
+        if ($price < 200) {
+            $price += 10;
         }
     }
 }

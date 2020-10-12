@@ -2,13 +2,12 @@
 
 namespace Shop\Api\Transport\Http\Controller;
 
-use Shop\Api\Protocol\Json\CountriesResponse;
-use Shop\Api\Protocol\Json\CountryResponse;
+use Shop\Api\Protocol\Json\ProductsResponse;
 use Shop\Api\Transport\Http\Request;
 use Shop\App\ContainerInterface;
-use Shop\App\Module\Country\Service;
+use Shop\App\Module\Product\Service;
 
-class CountryController
+class ProductController
 {
     /**
      * @param ContainerInterface $container
@@ -16,7 +15,7 @@ class CountryController
      */
     public static function search(ContainerInterface $container, Request $request)
     {
-        $countries = Service::instance($container)->search();
-        echo json_encode(new CountriesResponse(...$countries));
+        $products = Service::instance($container)->search($request->var('country_code'));
+        echo json_encode(new ProductsResponse(...$products));
     }
 }

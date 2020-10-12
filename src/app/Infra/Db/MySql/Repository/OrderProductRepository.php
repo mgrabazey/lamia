@@ -36,4 +36,19 @@ class OrderProductRepository extends AbstractRepository implements OrderProductI
     {
         $this->insert($order);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function loadProduct(OrderProduct ...$orderProducts)
+    {
+        $orderProductsMap = [];
+        foreach ($orderProducts as $orderProduct) {
+            $orderProductsMap[$orderProduct->getProductId()] = $orderProduct;
+        }
+        $products = $this->container->productRepository()->getByIds(array_keys($orderProductsMap));
+        foreach ($products as $product) {
+            $orderProductsMap[$product->getId()]->setProduct($product);
+        }
+    }
 }

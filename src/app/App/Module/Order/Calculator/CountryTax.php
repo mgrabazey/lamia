@@ -27,13 +27,18 @@ class CountryTax implements StartInterface
      */
     public function update(string $countryCode, StartProduct ...$products)
     {
-        $productsMap = [];
+        $this->container->productRepository()->loadTax(
+            $countryCode,
+            ...array_map(
+                fn(StartProduct $product) => $product->product()->getProduct(),
+                $products
+            )
+        );
         foreach ($products as $product) {
-            $productsMap[$product->getId()] = $product;
-        }
-        foreach ($this->container->taxRepository()->getByCountryAndProducts($countryCode, array_keys($productsMap)) as $tax) {
-            $product = $productsMap[$tax->getProductId()];
-            $product->setPrice($product->getPrice()*(1+$tax->getValue()));
+            $product->setPriceFactor(
+                $product->getPriceFactor() +
+                $product->product()->getProduct()->getTax()->getValue()
+            );
         }
     }
 }

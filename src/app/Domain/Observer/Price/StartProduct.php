@@ -3,82 +3,49 @@
 namespace Shop\Domain\Observer\Price;
 
 use Shop\Domain\OrderProduct;
-use Shop\Domain\Product;
 
 class StartProduct
 {
     /**
-     * @var int
+     * @var OrderProduct
      */
-    private int $id;
+    private OrderProduct $orderProduct;
 
     /**
-     * @var float|int
+     * @var float
      */
-    private float $price;
+    private float $priceFactor = 0;
 
     /**
-     * @var int
-     */
-    private int $count;
-
-    /**
-     * StartObserverProduct constructor.
-     * @param Product $product
+     * StartProduct constructor.
      * @param OrderProduct $orderProduct
      */
-    public function __construct(Product $product, OrderProduct $orderProduct)
+    public function __construct(OrderProduct $orderProduct)
     {
-        $this->id = $product->getId();
-        $this->price = $product->getPrice();
-        $this->count = $orderProduct->getCount();
+        $this->orderProduct = $orderProduct;
     }
 
     /**
-     * @return int
+     * @return OrderProduct
      */
-    public function getId(): int
+    public function product(): OrderProduct
     {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
+        return $this->orderProduct;
     }
 
     /**
      * @return float
      */
-    public function getPrice(): float
+    public function getPriceFactor(): float
     {
-        return $this->price;
+        return $this->priceFactor;
     }
 
     /**
-     * @param float $price
+     * @param float $priceFactor
      */
-    public function setPrice(float $price)
+    public function setPriceFactor(float $priceFactor)
     {
-        $this->price = $price;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCount(): int
-    {
-        return $this->count;
-    }
-
-    /**
-     * @param int $count
-     */
-    public function setCount(int $count)
-    {
-        $this->count = $count;
+        $this->priceFactor = $priceFactor;
     }
 }

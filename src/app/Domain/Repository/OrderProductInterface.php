@@ -10,4 +10,9 @@ interface OrderProductInterface
      * @param OrderProduct $orderProduct
      */
     public function create(OrderProduct $orderProduct);
+
+    /**
+     * @param OrderProduct ...$orderProducts
+     */
+    public function loadProduct(OrderProduct ...$orderProducts);
 }

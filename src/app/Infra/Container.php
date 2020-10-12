@@ -63,7 +63,7 @@ class Container implements ContainerInterface
      */
     public function countryRepository(): CountryInterface
     {
-        return new CountryRepository($this->database);
+        return new CountryRepository($this, $this->database);
     }
 
     /**
@@ -71,7 +71,7 @@ class Container implements ContainerInterface
      */
     public function productRepository(): ProductInterface
     {
-        return new ProductRepository($this->database);
+        return new ProductRepository($this, $this->database);
     }
 
     /**
@@ -79,7 +79,7 @@ class Container implements ContainerInterface
      */
     public function orderRepository(): OrderInterface
     {
-        return new OrderRepository($this->database);
+        return new OrderRepository($this, $this->database);
     }
 
     /**
@@ -87,7 +87,7 @@ class Container implements ContainerInterface
      */
     public function orderProductRepository(): OrderProductInterface
     {
-        return new OrderProductRepository($this->database);
+        return new OrderProductRepository($this, $this->database);
     }
 
     /**
@@ -95,6 +95,6 @@ class Container implements ContainerInterface
      */
     public function taxRepository(): TaxInterface
     {
-        return new TaxRepository($this->database);
+        return new TaxRepository($this, $this->database);
     }
 }

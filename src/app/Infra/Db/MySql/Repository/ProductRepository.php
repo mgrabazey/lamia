@@ -48,5 +48,18 @@ class ProductRepository extends AbstractRepository implements ProductInterface
         return $this->fetchByPrimaryKeys($ids);
     }
 
-
+    /**
+     * @inheritdoc
+     */
+    public function loadTax(string $countryCode, Product ...$products)
+    {
+        $productsMap = [];
+        foreach ($products as $product) {
+            $productsMap[$product->getId()] = $product;
+        }
+        $taxes = $this->container->taxRepository()->getByCountryAndProducts($countryCode, array_keys($productsMap));
+        foreach ($taxes as $tax) {
+            $productsMap[$tax->getProductId()]->setTax($tax);
+        }
+    }
 }

@@ -30,24 +30,27 @@ class Service extends AbstractService
 
     /**
      * @param Order $order
-     * @param OrderProduct ...$orderProducts
      * @throws Throwable
      */
-    public function create(Order $order, OrderProduct ...$orderProducts)
+    public function create(Order $order)
     {
         $db = $this->container->databaseService();
         $db->beginTransaction();
         try {
-            $calc = new Calculator($this->container, $order, ...$orderProducts);
+            $orderProductRepository = $this->container->orderProductRepository();
+            $orderProductRepository->loadProduct(...$order->getProducts());
+
+            $calc = new Calculator($this->container, $order);
             $calc->attachOnStart(new CountryTax($this->container));
             $calc->attachOnEnd(new FineIfSmall());
 
             $order->setPrice($calc->calc());
             $this->container->orderRepository()->create($order);
-            foreach ($orderProducts as $orderProduct) {
+            foreach ($order->getProducts() as $orderProduct) {
                 $orderProduct->setOrderId($order->getId());
-                $this->container->orderProductRepository()->create($orderProduct);
+                $orderProductRepository->create($orderProduct);
             }
+
             $order->attachOnCreate(new InvoiceSender($this->container));
             $order->notifyOnCreate();
             $db->commit();

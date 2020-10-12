@@ -1,0 +1,11 @@
+#loading {
+    display: none;
+}
+
+#countries {
+    display: none;
+}
+
+#countries .country {
+    cursor: pointer;
+}

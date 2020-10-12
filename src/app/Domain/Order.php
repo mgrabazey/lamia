@@ -42,6 +42,11 @@ class Order
     private float $_price = 0;
 
     /**
+     * @var OrderProduct[]
+     */
+    private array $products = [];
+
+    /**
      * @param OrderInterface $observer
      */
     public function attachOnCreate(OrderInterface $observer)
@@ -153,5 +158,21 @@ class Order
     public function setPrice(float $_price)
     {
         $this->_price = round($_price, 2);
+    }
+
+    /**
+     * @return OrderProduct[]
+     */
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param OrderProduct ...$products
+     */
+    public function setProducts(OrderProduct ...$products)
+    {
+        $this->products = $products;
     }
 }

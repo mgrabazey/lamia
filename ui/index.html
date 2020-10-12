@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <div id="loading">
+        loading...
+    </div>
+    <div id="countries">
+        <div>
+            Select Country:
+        </div>
+        <div id="countries-list"></div>
+    </div>
+    <div id="order">
+        <div>
+            Select Products:
+        </div>
+        <div id="order-list"></div>
+        <div id="order-price">Total Price: <span>0</span>$ <i></i></div>
+        <div>
+            Invoice Format:
+            <input type="radio" name="invoice_format" value="1" checked>JSON
+            <input type="radio" name="invoice_format" value="2">HTML
+        </div>
+        <div>Email: <input type="email"></div>
+        <div>Send Invoice to Email: <input type="checkbox"></div>
+        <button>Order</button>
+    </div>
+    <div id="summary">
+        <div>
+            Your Order:
+        </div>
+        <div>
+
+        </div>
+    </div>
+</body>
+</html>

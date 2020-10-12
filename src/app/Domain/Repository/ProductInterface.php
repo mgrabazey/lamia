@@ -22,4 +22,10 @@ interface ProductInterface
      * @return Product[]
      */
     public function getByIds(array $id): array;
+
+    /**
+     * @param string $countryCode
+     * @param Product ...$products
+     */
+    public function loadTax(string $countryCode, Product ...$products);
 }

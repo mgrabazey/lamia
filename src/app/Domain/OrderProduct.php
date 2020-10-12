@@ -20,6 +20,11 @@ class OrderProduct
     private int $_count = 0;
 
     /**
+     * @var Product|null
+     */
+    private ?Product $product = null;
+
+    /**
      * @return int
      */
     public function getOrderId(): int
@@ -65,5 +70,21 @@ class OrderProduct
     public function setCount(int $_count)
     {
         $this->_count = $_count;
+    }
+
+    /**
+     * @return Product|null
+     */
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param Product|null $product
+     */
+    public function setProduct(Product $product = null)
+    {
+        $this->product = $product;
     }
 }

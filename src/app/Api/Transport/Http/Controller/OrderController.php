@@ -2,9 +2,11 @@
 
 namespace Shop\Api\Transport\Http\Controller;
 
+use Shop\Api\Protocol\Json\OrderResponse;
+use Shop\Api\Protocol\Json\ProductsResponse;
 use Throwable;
 use JsonException;
-use Shop\Api\Protocol\Json\CreateOrder;
+use Shop\Api\Protocol\Json\CreateOrderRequest;
 use Shop\Api\Transport\Http\Request;
 use Shop\App\ContainerInterface;
 use Shop\App\Module\Order\Service;
@@ -19,7 +21,8 @@ class OrderController
      */
     public function create(ContainerInterface $container, Request $request)
     {
-        $protocol = CreateOrder::create($request->raw());
-        Service::instance($container)->create($protocol->order(), ...$protocol->orderProducts());
+        $order = CreateOrderRequest::create($request->raw())->order();
+        Service::instance($container)->create($order);
+        echo json_encode(new OrderResponse($order));
     }
 }

@@ -14,13 +14,4 @@ class Service extends AbstractService
     {
         return $this->container->countryRepository()->search();
     }
-
-    /**
-     * @param string $code
-     * @return Country
-     */
-    public function get(string $code): Country
-    {
-        return $this->container->countryRepository()->get($code);
-    }
 }

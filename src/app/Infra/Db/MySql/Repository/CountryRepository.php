@@ -36,12 +36,4 @@ class CountryRepository extends AbstractRepository implements CountryInterface
     {
         return $this->fetchAll();
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function get(string $code): Country
-    {
-        return $this->fetchByPrimaryKey($code);
-    }
 }

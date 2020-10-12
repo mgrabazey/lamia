@@ -6,7 +6,7 @@ use JsonException;
 use Shop\Domain\Order;
 use Shop\Domain\OrderProduct;
 
-class CreateOrder
+class CreateOrderRequest
 {
     /**
      * @var string
@@ -72,21 +72,14 @@ class CreateOrder
         $order->setInvoiceFormat($this->invoiceFormat);
         $order->setSendToEmail($this->sendToEmail);
         $order->setEmail($this->email);
-        return $order;
-    }
-
-    /**
-     * @return OrderProduct[]
-     */
-    public function orderProducts(): array
-    {
-        $arr = [];
+        $products = [];
         foreach ($this->products as $productId => $count) {
             $orderProduct = new OrderProduct();
             $orderProduct->setProductId($productId);
             $orderProduct->setCount($count);
-            $arr[] = $orderProduct;
+            $products[] = $orderProduct;
         }
-        return $arr;
+        $order->setProducts(...$products);
+        return $order;
     }
 }

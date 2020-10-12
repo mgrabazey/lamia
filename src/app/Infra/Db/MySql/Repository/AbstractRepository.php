@@ -5,9 +5,15 @@ namespace Shop\Infra\Db\MySql\Repository;
 use PDO;
 use ReflectionObject;
 use ReflectionException;
+use Shop\App\ContainerInterface;
 
 abstract class AbstractRepository
 {
+    /**
+     * @var ContainerInterface
+     */
+    protected ContainerInterface $container;
+
     /**
      * @var PDO
      */
@@ -20,10 +26,12 @@ abstract class AbstractRepository
 
     /**
      * AbstractRepository constructor.
+     * @param ContainerInterface $container
      * @param PDO $connection
      */
-    public function __construct(PDO $connection)
+    public function __construct(ContainerInterface $container, PDO $connection)
     {
+        $this->container = $container;
         $this->connection = $connection;
     }
 

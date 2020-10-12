@@ -8,11 +8,15 @@ use Shop\Domain\Product;
 class Service extends AbstractService
 {
     /**
+     * @param string $countryCode
      * @return Product[]
      */
-    public function search(): array
+    public function search(string $countryCode): array
     {
-        return $this->container->productRepository()->search();
+        $repository = $this->container->productRepository();
+        $products =  $repository->search();
+        $repository->loadTax($countryCode, ...$products);
+        return $products;
     }
 
     /**

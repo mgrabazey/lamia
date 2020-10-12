@@ -25,6 +25,11 @@ class Product
     private float $_price = 0;
 
     /**
+     * @var Tax|null
+     */
+    private ?Tax $tax = null;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -86,5 +91,21 @@ class Product
     public function setPrice(float $_price)
     {
         $this->_price = $_price;
+    }
+
+    /**
+     * @return Tax|null
+     */
+    public function getTax(): ?Tax
+    {
+        return $this->tax;
+    }
+
+    /**
+     * @param Tax|null $tax
+     */
+    public function setTax(Tax $tax = null)
+    {
+        $this->tax = $tax;
     }
 }

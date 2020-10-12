@@ -4,6 +4,7 @@
   "require": {
     "php": "^7.4",
     "ext-pdo": "^7.4",
+    "ext-json": "^7.4",
     "phpmailer/phpmailer": "~6.1"
   },
   "autoload": {
